@@ -53,17 +53,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.radio {
-    margin-right: 1rem;
-
-    .checkboxLabel {
-        margin-left: 0.5rem;
-    }
-
-    + .radio {
-        margin-left: inherit;
-    }
-}
-</style>

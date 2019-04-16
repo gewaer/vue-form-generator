@@ -51,13 +51,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.checkbox {
-    margin-right: 1rem;
-
-    .checkboxLabel {
-        margin-left: 0.5rem;
-    }
-}
-</style>
