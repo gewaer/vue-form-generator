@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import { FORMS } from "@/config/constants";
 import fieldsMixin from "../mixins";
 
 export default {
@@ -25,6 +24,7 @@ export default {
     ],
     data() {
         return {
+            DEFAULT_MAX_LENGTH_TEXTAREA: 32000,
             value: undefined
         }
     },
@@ -33,7 +33,7 @@ export default {
             return !this.isInputNumber && !this.hasPattern && this.item.validations && this.item.validations.min || undefined;
         },
         maxLength() {
-            return !this.isInputNumber && !this.hasPattern && this.item.validations ? this.item.validations.max || FORMS.DEFAULT_MAX_LENGTH_TEXTAREA : undefined;
+            return !this.isInputNumber && !this.hasPattern && this.item.validations ? this.item.validations.max || this.DEFAULT_MAX_LENGTH_TEXTAREA : undefined;
         }
     },
     mounted() {

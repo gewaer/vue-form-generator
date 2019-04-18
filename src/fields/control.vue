@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import { FORMS } from "@/config/constants";
 import Input from "./input";
 import Select from "./select";
 import Textarea from "./textarea";
@@ -57,6 +56,8 @@ export default {
     },
     data() {
         return {
+            DEFAULT_MAX_LENGTH_INPUT: 255,
+            DEFAULT_MAX_LENGTH_TEXTAREA: 32000,
             value: undefined
         }
     },
@@ -89,7 +90,7 @@ export default {
 
             return isNormalInputOrTextarea && {
                 min: !isInputNumber && min || false,
-                max: !isInputNumber && max || type === "textarea" ? FORMS.DEFAULT_MAX_LENGTH_TEXTAREA : FORMS.DEFAULT_MAX_LENGTH_INPUT,
+                max: !isInputNumber && max || type === "textarea" ? this.DEFAULT_MAX_LENGTH_TEXTAREA : this.DEFAULT_MAX_LENGTH_INPUT,
                 min_value: isInputNumber && minValue || false,
                 max_value: isInputNumber && maxValue || false,
                 ...(this.item.validations || {})

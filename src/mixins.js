@@ -1,4 +1,4 @@
-import { lowercase, slugify } from "@/utils/helpers";
+import { lowercase, slugify } from "./helpers";
 import merge from "lodash/merge";
 import zipObject from "lodash/zipObject";
 

@@ -93,7 +93,7 @@ export default {
                 const isValid = every(options.buttons, button => button.text);
 
                 if (!isValid) {
-                    console.error("One or more form options buttons are missing the 'text' property.");
+                    // console.error("One or more form options buttons are missing the 'text' property.");
                 }
 
                 return isValid;

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { slugify } from "@/utils/helpers";
+import { slugify } from "../helpers";
 
 export default {
     name: "Label",
