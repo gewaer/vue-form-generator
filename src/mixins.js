@@ -23,7 +23,9 @@ export default {
                 title: ""
             }
 
-            attributes[this.item.errorClass] = !!this.error;
+            if (this.item.errorClass) {
+                attributes.class[this.item.errorClass] = !!this.error;
+            }
 
             let fieldClass = (this.item.attributes && this.item.attributes.class) || [];
             fieldClass = zipObject(fieldClass, fieldClass);

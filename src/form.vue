@@ -7,7 +7,7 @@
                         v-bind="x.wrapperAttributes || {}"
                     >
                         <form-label :item="x"/>
-                        <form-control ref="control" :item="x"/>
+                        <form-control ref="control" :item="x" @updateValue="updateValue" />
                     </div>
                 </div>
             </div>
@@ -24,17 +24,24 @@
                 v-bind="item.wrapperAttributes || {}"
             >
                 <form-label :item="item"/>
-                <form-control ref="control" :item="item"/>
+                <form-control ref="control" :item="item" @updateValue="updateValue" />
             </div>
         </template>
         <template v-if="$children.length">
             <div :class="formOptions.actionsWrapperClass || {}">
                 <input
-                    v-if="formOptions.buttons && formOptions.buttons.reset"
+                    v-if="formOptions.buttons.reset"
                     :class="formOptions.buttons.reset.class || {}"
                     :value="formOptions.buttons.reset.text"
                     type="reset"
                     @click="resetForm"
+                >
+                <input
+                    v-if="formOptions.buttons.cancel"
+                    :class="formOptions.buttons.cancel.class || {}"
+                    :value="formOptions.buttons.cancel.text"
+                    type="button"
+                    @click="cancelForm"
                 >
                 <input
                     :class="formOptions.buttons.submit.class || {}"
@@ -66,13 +73,13 @@ export default {
     },
     inject: ["$validator"],
     props: {
+        emitValuesOnUpdate: {
+            type: Boolean,
+            default: false
+        },
         formFields: {
             type: Array,
             required: true
-        },
-        hasIcon: {
-            type: Boolean,
-            default: true
         },
         formName: {
             type: String,
@@ -99,6 +106,10 @@ export default {
                 return isValid;
             }
         },
+        hasIcon: {
+            type: Boolean,
+            default: true
+        },
         mandatoryAsteriskLegend: {
             type: String,
             default: "* field required"
@@ -116,21 +127,34 @@ export default {
     },
     computed: {
         isFormValid() {
-            const allControlRequire = this.allControls.filter(({ item }) => item.validations && item.validations.required)
-            const isAllControlRequireWithValue = allControlRequire.every(({ value }) => !!value)
-            const isFormValuesEmpty = Object.values(this.formValues).every(x => x === undefined)
-            const hasError = !!this.$validator.errors.items.length
-            return isAllControlRequireWithValue && !isFormValuesEmpty && !hasError
+            const allControlRequired = this.allControls.filter(({ item }) => item.validations && item.validations.required);
+            const isAllControlRequiredWithValue = allControlRequired.every(({ value }) => !!value);
+            const isFormValuesEmpty = Object.values(this.formValues).every(x => x === undefined);
+            const hasError = !!this.$validator.errors.items.length;
+            return isAllControlRequiredWithValue && !isFormValuesEmpty && !hasError;
         }
     },
     created() {
         this.formValues = pipe(flatten, map(getLabels), valueToProp)(this.formFields);
+
+        // This is very taxing. Use at your own risk.
+        if (this.emitValuesOnUpdate) {
+            this.$watch("formValues", (values) => {
+                this.$emit("formValuesUpdated", values);
+            }, { deep: true });
+        }
     },
     mounted() {
-        this.allControls = this.$refs.control || []
+        this.allControls = this.$refs.control || [];
+    },
+    // Seems the mounted hook is not working. Using updated meanwhile.
+    updated() {
+        if (!this.allControls.length) {
+            this.allControls = this.$refs.control || [];
+        }
     },
     methods: {
-        async beforeSubmit(ev) {
+        async beforeSubmit(event) {
             let isValidated = false
             await this.$validator.validateAll(this.formName)
                 .then(result => {
@@ -141,7 +165,10 @@ export default {
                 formName: this.formName,
                 values: this.formValues
             })
-            isValidated && this.resetFormAfterSubmit && this.resetForm(ev)
+            isValidated && this.resetFormAfterSubmit && this.resetForm(event)
+        },
+        cancelForm() {
+            this.$emit("formCancelled");
         },
         clearValues() {
             this.allControls.map(x => {
@@ -162,7 +189,7 @@ export default {
             const selects = this.allControls.filter(x => x.item.options)
             selects.map(select => {
                 select.item.options.map(option => {
-                    option.selected && (option.selected = false)
+                    option.selected && (option.selected = false);
                 })
             })
         },
@@ -170,21 +197,23 @@ export default {
             this.$emit("formSubmitted", data);
         },
         resetFormValues() {
-            this.clearValues()
-            this.clearPrefillValues()
+            this.clearValues();
+            this.clearPrefillValues();
         },
-        resetForm(ev) {
-            this.resetFormValues()
-            this.errors.clear(this.formName)
+        resetForm(event) {
+            this.resetFormValues();
+            this.errors.clear(this.formName);
 
             try {
-                ev.target.reset()
+                event.target.reset();
             } catch (err) {
-                // eslint-disable-next-line
-                ev && ev.target.reset
+                event && event.target.reset;
             }
 
-            this.$validator.reset()
+            this.$validator.reset();
+        },
+        updateValue(field, value) {
+            this.$set(this.formValues, field, value);
         }
     }
 }

@@ -1,27 +1,32 @@
 {
-  "name": "@gewaer/form-generator",
+  "name": "@gewaer/vue-form-generator",
   "version": "0.1.0",
-  "description": "Base header component for the Gewaer platform.",
-  "main": "./dist/form-generator.umd.min.js",
+  "description": "Form generator component based on JSON schemas for Vue.",
+  "main": "./dist/vue-form-generator.umd.min.js",
   "files": [
-    "dist/form-generator.umd.min.js",
-    "dist/form-generator.css"
+    "dist/vue-form-generator.umd.min.js"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "bundle": "vue-cli-service build --target lib --name form-generator ./src/form.vue",
+    "bundle": "vue-cli-service build --target lib --name vue-form-generator ./src/form.vue",
     "lint": "vue-cli-service lint"
   },
   "keywords": [
-    "gewaer"
+    "gewaer",
+    "vue",
+    "vuejs",
+    "form",
+    "generator",
+    "schema",
+    "json"
   ],
   "author": "",
   "license": "MIT",
-  "bugs": "https://github.com/Gewaer/form-generator/issues/new",
+  "bugs": "https://github.com/Gewaer/vue-form-generator/issues/new",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Gewaer/form-generator"
+    "url": "https://github.com/Gewaer/vue-form-generator"
   },
   "precommit": [
     "lint"

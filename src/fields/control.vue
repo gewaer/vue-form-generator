@@ -19,10 +19,10 @@
             :item="item"
         />
         <span v-if="item.iconLeft" class="icon is-small is-left">
-            <i :class="`fa-${item.iconLeft} fas`"/>
+            <i :class="`fa fa-${item.iconLeft}`" />
         </span>
         <span v-if="shouldShowErrorIcon" class="icon is-small is-right">
-            <i class="fas fa-exclamation-triangle"/>
+            <i class="fa fa-exclamation-triangle" />
         </span>
         <span v-if="fieldError" :class="item.errorClass || 'text-danger'">
             {{ fieldError.msg }}
@@ -99,7 +99,8 @@ export default {
     },
     watch: {
         value(val) {
-            this.$parent.formValues[this.item.field || this.item.label] = val;
+            // this.$parent.formValues[this.item.field || this.item.label] = val;)
+            this.$emit("updateValue", this.item.field || this.item.label, val);
         }
     }
 }
