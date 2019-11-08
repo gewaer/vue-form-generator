@@ -1,6 +1,6 @@
 {
   "name": "@gewaer/vue-form-generator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Form generator component based on JSON schemas for Vue.",
   "main": "./dist/vue-form-generator.umd.min.js",
   "files": [
