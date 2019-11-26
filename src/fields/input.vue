@@ -1,8 +1,8 @@
 <template>
     <input
+        :id="item.label | slugify | lowercase"
         v-model="value"
         v-bind="attributes"
-        :id="item.label | slugify | lowercase"
         :name="item.label | slugify | lowercase"
         :type="item.type || 'text'"
         :minlength="minLength"

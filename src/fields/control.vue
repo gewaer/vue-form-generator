@@ -1,21 +1,21 @@
 <template>
     <div :class="{ 'has-icons-left': item.iconLeft, 'has-icons-right': shouldShowErrorIcon }" class="control">
         <component
-            v-validate.immediate="getValidation"
+            :is="`app-${getComponent}`"
             v-if="item.value"
             v-model.lazy.trim="value"
+            v-validate.immediate="getValidation"
             :data-vv-name="item.label"
             :error="fieldError"
-            :is="`app-${getComponent}`"
             :item="item"
         />
         <component
-            v-validate="getValidation"
+            :is="`app-${getComponent}`"
             v-else
             v-model.lazy.trim="value"
+            v-validate="getValidation"
             :data-vv-name="item.label"
             :error="fieldError"
-            :is="`app-${getComponent}`"
             :item="item"
         />
         <span v-if="item.iconLeft" class="icon is-small is-left">

@@ -6,7 +6,7 @@
                     <div
                         v-bind="x.wrapperAttributes || {}"
                     >
-                        <form-label :item="x"/>
+                        <form-label :item="x" />
                         <form-control ref="control" :item="x" @updateValue="updateValue" />
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                 :key="index"
                 v-bind="item.wrapperAttributes || {}"
             >
-                <form-label :item="item"/>
+                <form-label :item="item" />
                 <form-control ref="control" :item="item" @updateValue="updateValue" />
             </div>
         </template>
