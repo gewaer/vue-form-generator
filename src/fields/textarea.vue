@@ -1,8 +1,8 @@
 <template>
     <textarea
+        :id="item.label | slugify | lowercase"
         v-model="value"
         v-bind="attributes"
-        :id="item.label | slugify | lowercase"
         :name="item.label | slugify | lowercase"
         :data-vv-name="item.label"
         :minlength="minLength"

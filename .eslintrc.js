@@ -38,7 +38,9 @@ module.exports = {
             flatTernaryExpressions: true
         }],
         "linebreak-style": ["error"],
-        "new-cap": "error",
+        "new-cap": ["error", {
+            capIsNew: false
+        }],
         "newline-per-chained-call": 0,
         "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
         "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
@@ -51,7 +53,17 @@ module.exports = {
             allowTemplateLiterals: true
         }],
         semi: 0,
+        "space-infix-ops": "error",
+        "no-multi-spaces": ["error", { exceptions: { "Property": false } }],
+        "space-before-blocks": "error",
+        "keyword-spacing": "error",
         "space-before-function-paren": ["error", "never"],
+        "space-in-parens": "error",
+        "object-curly-spacing": ["error", "always"],
+        "arrow-spacing": "error",
+        "no-useless-escape": 0,
+        "vue/no-v-html": 0,
+        "prefer-const": "error",
         "vue/html-indent": ["error", 4, {
             "attribute": 1,
             "closeBracket": 0,

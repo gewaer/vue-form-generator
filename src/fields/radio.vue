@@ -7,8 +7,8 @@
             class="radio"
         >
             <input
-                v-model="value"
                 :id="x.text || x | slugify"
+                v-model="value"
                 :name="item.label | slugify"
                 :value="x.value || x.text || x"
                 :type="item.type"
