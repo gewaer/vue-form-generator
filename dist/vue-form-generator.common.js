@@ -21595,12 +21595,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/form.vue?vue&type=template&id=9a73a6e4&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/form.vue?vue&type=template&id=760c9fb8&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{attrs:{"data-vv-scope":_vm.formName,"role":"form"},on:{"submit":function($event){$event.preventDefault();return _vm.beforeSubmit($event)}}},[_vm._l((_vm.formFields),function(item,index){return [(Array.isArray(item))?_c('div',{key:index,staticClass:"row"},_vm._l((item),function(x){return _c('div',{key:x.label,staticClass:"col-12 col-xl-6"},[_c('div',_vm._b({},'div',x.wrapperAttributes || {},false),[_c('form-label',{attrs:{"item":x}}),_c('form-control',{ref:"control",refInFor:true,attrs:{"item":x},on:{"updateValue":_vm.updateValue}})],1)])}),0):(Object.keys(item) == 'html')?_c('div',{key:index,staticClass:"field",attrs:{"data-test":"htmlContentFromFormFields"},domProps:{"innerHTML":_vm._s(Object.values(item)[0])}}):_c('div',_vm._b({key:index},'div',item.wrapperAttributes || {},false),[_c('form-label',{attrs:{"item":item}}),_c('form-control',{ref:"control",refInFor:true,attrs:{"item":item},on:{"updateValue":_vm.updateValue}})],1)]}),(_vm.$children.length)?[_c('div',{class:_vm.formOptions.actionsWrapperClass || {}},[(_vm.formOptions.buttons.reset)?_c('input',{class:_vm.formOptions.buttons.reset.class || {},attrs:{"type":"reset"},domProps:{"value":_vm.formOptions.buttons.reset.text},on:{"click":_vm.resetForm}}):_vm._e(),(_vm.formOptions.buttons.cancel)?_c('input',{class:_vm.formOptions.buttons.cancel.class || {},attrs:{"value":_vm.formOptions.buttons.cancel.text,"type":"button"},on:{"click":_vm.cancelForm}}):_vm._e(),_c('input',{class:_vm.formOptions.buttons.submit.class || {},attrs:{"disabled":!_vm.isFormValid,"type":"submit"},domProps:{"value":_vm.formOptions.buttons.submit.text}})])]:_vm._e()],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/form.vue?vue&type=template&id=9a73a6e4&
+// CONCATENATED MODULE: ./src/form.vue?vue&type=template&id=760c9fb8&
 
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_isPlaceholder.js
 function _isPlaceholder(a) {
@@ -23488,6 +23488,18 @@ const valueToProp = object => es_pickAll(object, {});
   },
 
   computed: {
+    changedFields() {
+      const fields = [];
+
+      this.$validator._base.fields.items.forEach(item => {
+        if (item.flags.changed) {
+          fields.push(item.name);
+        }
+      });
+
+      return fields;
+    },
+
     isFormValid() {
       const allControlRequired = this.allControls.filter(({
         item
@@ -23567,6 +23579,10 @@ const valueToProp = object => es_pickAll(object, {});
 
     emitValues(data) {
       this.$emit("formSubmitted", data);
+    },
+
+    getChangedFields() {
+      return this.changedFields;
     },
 
     resetFormValues() {
