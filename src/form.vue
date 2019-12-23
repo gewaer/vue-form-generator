@@ -126,6 +126,17 @@ export default {
         }
     },
     computed: {
+        changedFields() {
+            const fields = [];
+
+            this.$validator._base.fields.items.forEach(item => {
+                if (item.flags.changed) {
+                    fields.push(item.name);
+                }
+            });
+
+            return fields;
+        },
         isFormValid() {
             const allControlRequired = this.allControls.filter(({ item }) => item.validations && item.validations.required);
             const isAllControlRequiredWithValue = allControlRequired.every(({ value }) => !!value);
@@ -164,8 +175,9 @@ export default {
             isValidated && this.isFormValid && this.emitValues({
                 formName: this.formName,
                 values: this.formValues
-            })
-            isValidated && this.resetFormAfterSubmit && this.resetForm(event)
+            });
+
+            isValidated && this.resetFormAfterSubmit && this.resetForm(event);
         },
         cancelForm() {
             this.$emit("formCancelled");
@@ -195,6 +207,9 @@ export default {
         },
         emitValues(data) {
             this.$emit("formSubmitted", data);
+        },
+        getChangedFields() {
+            return this.changedFields;
         },
         resetFormValues() {
             this.clearValues();
