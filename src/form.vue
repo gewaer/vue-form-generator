@@ -27,7 +27,7 @@
                 <form-control ref="control" :item="item" @updateValue="updateValue" />
             </div>
         </template>
-        <template v-if="$children.length">
+        <template v-if="formFields.length">
             <div :class="formOptions.actionsWrapperClass || {}">
                 <input
                     v-if="formOptions.buttons.reset"

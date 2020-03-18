@@ -1,6 +1,6 @@
 {
   "name": "@gewaer/vue-form-generator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Form generator component based on JSON schemas for Vue.",
   "main": "./dist/vue-form-generator.umd.min.js",
   "files": [
@@ -32,22 +32,22 @@
     "lint"
   ],
   "dependencies": {
-    "core-js": "^3.4.3",
+    "core-js": "^3.6.4",
     "lodash": "^4.17.15",
-    "ramda": "^0.26.1",
-    "slugify": "^1.3.6",
-    "vue": "^2.6.10"
+    "ramda": "^0.27.0",
+    "slugify": "^1.4.0",
+    "vue": "^2.6.11"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.5",
-    "@vue/cli-plugin-eslint": "^4.0.5",
-    "@vue/cli-service": "^4.0.5",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.1",
-    "eslint-plugin-vue": "^6.0.1",
-    "node-sass": "^4.13.0",
+    "@vue/cli-plugin-babel": "^4.2.3",
+    "@vue/cli-plugin-eslint": "^4.2.3",
+    "@vue/cli-service": "^4.2.3",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "node-sass": "^4.13.1",
     "pre-commit": "^1.2.2",
-    "sass-loader": "^8.0.0",
-    "vue-template-compiler": "^2.6.10"
+    "sass-loader": "^8.0.2",
+    "vue-template-compiler": "^2.6.11"
   }
 }

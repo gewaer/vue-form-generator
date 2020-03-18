@@ -18230,23 +18230,37 @@ module.exports = baseIsNative;
     }
 
     options = (typeof options === 'string')
-      ? { replacement: options }
+      ? {replacement: options}
       : options || {}
 
     var locale = locales[options.locale] || {}
 
+    var replacement = options.replacement || '-'
+
     var slug = string.split('')
+      // replace characters based on charMap
       .reduce(function (result, ch) {
         return result + (locale[ch] || charMap[ch] || ch)
-          // allowed
-          .replace(options.remove || /[^\w\s$*_+~.()'"!\-:@]/g, '')
       }, '')
+      // remove not allowed characters
+      .replace(options.remove || /[^\w\s$*_+~.()'"!\-:@]+/g, '')
       // trim leading/trailing spaces
       .trim()
-      // convert spaces
-      .replace(/[-\s]+/g, options.replacement || '-')
+      // convert spaces to replacement character
+      // also remove duplicates of the replacement character
+      .replace(new RegExp('[\\s' + replacement + ']+', 'g'), replacement)
 
-    return options.lower ? slug.toLowerCase() : slug
+    if (options.lower) {
+      slug = slug.toLowerCase()
+    }
+
+    if (options.strict) {
+      // remove anything besides letters, numbers, and the replacement char
+      slug = slug
+        .replace(new RegExp('[^a-zA-Z0-9' + replacement + ']', 'g'), '')
+    }
+
+    return slug
   }
 
   replace.extend = function (customMap) {
@@ -21585,6 +21599,7 @@ module.exports = initCloneObject;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
@@ -21604,19 +21619,18 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/form.vue?vue&type=template&id=760c9fb8&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{attrs:{"data-vv-scope":_vm.formName,"role":"form"},on:{"submit":function($event){$event.preventDefault();return _vm.beforeSubmit($event)}}},[_vm._l((_vm.formFields),function(item,index){return [(Array.isArray(item))?_c('div',{key:index,staticClass:"row"},_vm._l((item),function(x){return _c('div',{key:x.label,staticClass:"col-12 col-xl-6"},[_c('div',_vm._b({},'div',x.wrapperAttributes || {},false),[_c('form-label',{attrs:{"item":x}}),_c('form-control',{ref:"control",refInFor:true,attrs:{"item":x},on:{"updateValue":_vm.updateValue}})],1)])}),0):(Object.keys(item) == 'html')?_c('div',{key:index,staticClass:"field",attrs:{"data-test":"htmlContentFromFormFields"},domProps:{"innerHTML":_vm._s(Object.values(item)[0])}}):_c('div',_vm._b({key:index},'div',item.wrapperAttributes || {},false),[_c('form-label',{attrs:{"item":item}}),_c('form-control',{ref:"control",refInFor:true,attrs:{"item":item},on:{"updateValue":_vm.updateValue}})],1)]}),(_vm.$children.length)?[_c('div',{class:_vm.formOptions.actionsWrapperClass || {}},[(_vm.formOptions.buttons.reset)?_c('input',{class:_vm.formOptions.buttons.reset.class || {},attrs:{"type":"reset"},domProps:{"value":_vm.formOptions.buttons.reset.text},on:{"click":_vm.resetForm}}):_vm._e(),(_vm.formOptions.buttons.cancel)?_c('input',{class:_vm.formOptions.buttons.cancel.class || {},attrs:{"value":_vm.formOptions.buttons.cancel.text,"type":"button"},on:{"click":_vm.cancelForm}}):_vm._e(),_c('input',{class:_vm.formOptions.buttons.submit.class || {},attrs:{"disabled":!_vm.isFormValid,"type":"submit"},domProps:{"value":_vm.formOptions.buttons.submit.text}})])]:_vm._e()],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/form.vue?vue&type=template&id=ef603b68&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('form',{attrs:{"data-vv-scope":_vm.formName,"role":"form"},on:{"submit":function($event){$event.preventDefault();return _vm.beforeSubmit($event)}}},[_vm._l((_vm.formFields),function(item,index){return [(Array.isArray(item))?_c('div',{key:index,staticClass:"row"},_vm._l((item),function(x){return _c('div',{key:x.label,staticClass:"col-12 col-xl-6"},[_c('div',_vm._b({},'div',x.wrapperAttributes || {},false),[_c('form-label',{attrs:{"item":x}}),_c('form-control',{ref:"control",refInFor:true,attrs:{"item":x},on:{"updateValue":_vm.updateValue}})],1)])}),0):(Object.keys(item) == 'html')?_c('div',{key:index,staticClass:"field",attrs:{"data-test":"htmlContentFromFormFields"},domProps:{"innerHTML":_vm._s(Object.values(item)[0])}}):_c('div',_vm._b({key:index},'div',item.wrapperAttributes || {},false),[_c('form-label',{attrs:{"item":item}}),_c('form-control',{ref:"control",refInFor:true,attrs:{"item":item},on:{"updateValue":_vm.updateValue}})],1)]}),(_vm.formFields.length)?[_c('div',{class:_vm.formOptions.actionsWrapperClass || {}},[(_vm.formOptions.buttons.reset)?_c('input',{class:_vm.formOptions.buttons.reset.class || {},attrs:{"type":"reset"},domProps:{"value":_vm.formOptions.buttons.reset.text},on:{"click":_vm.resetForm}}):_vm._e(),(_vm.formOptions.buttons.cancel)?_c('input',{class:_vm.formOptions.buttons.cancel.class || {},attrs:{"value":_vm.formOptions.buttons.cancel.text,"type":"button"},on:{"click":_vm.cancelForm}}):_vm._e(),_c('input',{class:_vm.formOptions.buttons.submit.class || {},attrs:{"disabled":!_vm.isFormValid,"type":"submit"},domProps:{"value":_vm.formOptions.buttons.submit.text}})])]:_vm._e()],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/form.vue?vue&type=template&id=760c9fb8&
+// CONCATENATED MODULE: ./src/form.vue?vue&type=template&id=ef603b68&
 
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_isPlaceholder.js
 function _isPlaceholder(a) {
-       return a != null && typeof a === 'object' && a['@@functional/placeholder'] === true;
+  return a != null && typeof a === 'object' && a['@@functional/placeholder'] === true;
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_curry1.js
-
 
 /**
  * Optimized internal one-arity curry function.
@@ -21626,6 +21640,7 @@ function _isPlaceholder(a) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curry1(fn) {
   return function f1(a) {
     if (arguments.length === 0 || _isPlaceholder(a)) {
@@ -21638,7 +21653,6 @@ function _curry1(fn) {
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_curry2.js
 
 
-
 /**
  * Optimized internal two-arity curry function.
  *
@@ -21647,15 +21661,18 @@ function _curry1(fn) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curry2(fn) {
   return function f2(a, b) {
     switch (arguments.length) {
       case 0:
         return f2;
+
       case 1:
         return _isPlaceholder(a) ? f2 : _curry1(function (_b) {
           return fn(a, _b);
         });
+
       default:
         return _isPlaceholder(a) && _isPlaceholder(b) ? f2 : _isPlaceholder(a) ? _curry1(function (_a) {
           return fn(_a, b);
@@ -21666,7 +21683,6 @@ function _curry2(fn) {
   };
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/pickAll.js
-
 
 /**
  * Similar to `pick` except that this one includes a `key: undefined` pair for
@@ -21686,17 +21702,23 @@ function _curry2(fn) {
  *      R.pickAll(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
  *      R.pickAll(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, e: undefined, f: undefined}
  */
-var pickAll = /*#__PURE__*/_curry2(function pickAll(names, obj) {
+
+var pickAll =
+/*#__PURE__*/
+_curry2(function pickAll(names, obj) {
   var result = {};
   var idx = 0;
   var len = names.length;
+
   while (idx < len) {
     var name = names[idx];
     result[name] = obj[name];
     idx += 1;
   }
+
   return result;
 });
+
 /* harmony default export */ var es_pickAll = (pickAll);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_arity.js
 function _arity(n, fn) {
@@ -21706,46 +21728,57 @@ function _arity(n, fn) {
       return function () {
         return fn.apply(this, arguments);
       };
+
     case 1:
       return function (a0) {
         return fn.apply(this, arguments);
       };
+
     case 2:
       return function (a0, a1) {
         return fn.apply(this, arguments);
       };
+
     case 3:
       return function (a0, a1, a2) {
         return fn.apply(this, arguments);
       };
+
     case 4:
       return function (a0, a1, a2, a3) {
         return fn.apply(this, arguments);
       };
+
     case 5:
       return function (a0, a1, a2, a3, a4) {
         return fn.apply(this, arguments);
       };
+
     case 6:
       return function (a0, a1, a2, a3, a4, a5) {
         return fn.apply(this, arguments);
       };
+
     case 7:
       return function (a0, a1, a2, a3, a4, a5, a6) {
         return fn.apply(this, arguments);
       };
+
     case 8:
       return function (a0, a1, a2, a3, a4, a5, a6, a7) {
         return fn.apply(this, arguments);
       };
+
     case 9:
       return function (a0, a1, a2, a3, a4, a5, a6, a7, a8) {
         return fn.apply(this, arguments);
       };
+
     case 10:
       return function (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
         return fn.apply(this, arguments);
       };
+
     default:
       throw new Error('First argument to _arity must be a non-negative integer no greater than ten');
   }
@@ -21760,7 +21793,6 @@ function _pipe(f, g) {
 
 
 
-
 /**
  * Optimized internal three-arity curry function.
  *
@@ -21769,15 +21801,18 @@ function _pipe(f, g) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curry3(fn) {
   return function f3(a, b, c) {
     switch (arguments.length) {
       case 0:
         return f3;
+
       case 1:
         return _isPlaceholder(a) ? f3 : _curry2(function (_b, _c) {
           return fn(a, _b, _c);
         });
+
       case 2:
         return _isPlaceholder(a) && _isPlaceholder(b) ? f3 : _isPlaceholder(a) ? _curry2(function (_a, _c) {
           return fn(_a, b, _c);
@@ -21786,6 +21821,7 @@ function _curry3(fn) {
         }) : _curry1(function (_c) {
           return fn(a, b, _c);
         });
+
       default:
         return _isPlaceholder(a) && _isPlaceholder(b) && _isPlaceholder(c) ? f3 : _isPlaceholder(a) && _isPlaceholder(b) ? _curry2(function (_a, _b) {
           return fn(_a, _b, c);
@@ -21827,7 +21863,6 @@ function _isString(x) {
 
 
 
-
 /**
  * Tests whether or not an object is similar to an array.
  *
@@ -21845,42 +21880,58 @@ function _isString(x) {
  *      _isArrayLike({length: 10}); //=> false
  *      _isArrayLike({0: 'zero', 9: 'nine', length: 10}); //=> true
  */
-var _isArrayLike = /*#__PURE__*/_curry1(function isArrayLike(x) {
+
+var _isArrayLike =
+/*#__PURE__*/
+_curry1(function isArrayLike(x) {
   if (_isArray(x)) {
     return true;
   }
+
   if (!x) {
     return false;
   }
+
   if (typeof x !== 'object') {
     return false;
   }
+
   if (_isString(x)) {
     return false;
   }
+
   if (x.nodeType === 1) {
     return !!x.length;
   }
+
   if (x.length === 0) {
     return true;
   }
+
   if (x.length > 0) {
     return x.hasOwnProperty(0) && x.hasOwnProperty(x.length - 1);
   }
+
   return false;
 });
+
 /* harmony default export */ var internal_isArrayLike = (_isArrayLike);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_xwrap.js
-var XWrap = /*#__PURE__*/function () {
+var XWrap =
+/*#__PURE__*/
+function () {
   function XWrap(fn) {
     this.f = fn;
   }
+
   XWrap.prototype['@@transducer/init'] = function () {
     throw new Error('init not implemented on XWrap');
   };
+
   XWrap.prototype['@@transducer/result'] = function (acc) {
     return acc;
   };
+
   XWrap.prototype['@@transducer/step'] = function (acc, x) {
     return this.f(acc, x);
   };
@@ -21892,7 +21943,6 @@ function _xwrap(fn) {
   return new XWrap(fn);
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/bind.js
-
 
 
 /**
@@ -21917,11 +21967,15 @@ function _xwrap(fn) {
  *      // logs {a: 2}
  * @symb R.bind(f, o)(a, b) = f.call(o, a, b)
  */
-var bind_bind = /*#__PURE__*/_curry2(function bind(fn, thisObj) {
+
+var bind_bind =
+/*#__PURE__*/
+_curry2(function bind(fn, thisObj) {
   return _arity(fn.length, function () {
     return fn.apply(thisObj, arguments);
   });
 });
+
 /* harmony default export */ var es_bind = (bind_bind);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_reduce.js
 
@@ -21931,27 +21985,35 @@ var bind_bind = /*#__PURE__*/_curry2(function bind(fn, thisObj) {
 function _arrayReduce(xf, acc, list) {
   var idx = 0;
   var len = list.length;
+
   while (idx < len) {
     acc = xf['@@transducer/step'](acc, list[idx]);
+
     if (acc && acc['@@transducer/reduced']) {
       acc = acc['@@transducer/value'];
       break;
     }
+
     idx += 1;
   }
+
   return xf['@@transducer/result'](acc);
 }
 
 function _iterableReduce(xf, acc, iter) {
   var step = iter.next();
+
   while (!step.done) {
     acc = xf['@@transducer/step'](acc, step.value);
+
     if (acc && acc['@@transducer/reduced']) {
       acc = acc['@@transducer/value'];
       break;
     }
+
     step = iter.next();
   }
+
   return xf['@@transducer/result'](acc);
 }
 
@@ -21960,23 +22022,27 @@ function _methodReduce(xf, acc, obj, methodName) {
 }
 
 var symIterator = typeof Symbol !== 'undefined' ? Symbol.iterator : '@@iterator';
-
 function _reduce(fn, acc, list) {
   if (typeof fn === 'function') {
     fn = _xwrap(fn);
   }
+
   if (internal_isArrayLike(list)) {
     return _arrayReduce(fn, acc, list);
   }
+
   if (typeof list['fantasy-land/reduce'] === 'function') {
     return _methodReduce(fn, acc, list, 'fantasy-land/reduce');
   }
+
   if (list[symIterator] != null) {
     return _iterableReduce(fn, acc, list[symIterator]());
   }
+
   if (typeof list.next === 'function') {
     return _iterableReduce(fn, acc, list);
   }
+
   if (typeof list.reduce === 'function') {
     return _methodReduce(fn, acc, list, 'reduce');
   }
@@ -21984,7 +22050,6 @@ function _reduce(fn, acc, list) {
   throw new TypeError('reduce: list must be array or iterable');
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/reduce.js
-
 
 
 /**
@@ -22033,10 +22098,13 @@ function _reduce(fn, acc, list) {
  *
  * @symb R.reduce(f, a, [b, c, d]) = f(f(f(a, b), c), d)
  */
-var reduce = /*#__PURE__*/_curry3(_reduce);
+
+var reduce =
+/*#__PURE__*/
+_curry3(_reduce);
+
 /* harmony default export */ var es_reduce = (reduce);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_checkForMethod.js
-
 
 /**
  * This checks whether a function has a [methodname] function. If it isn't an
@@ -22048,18 +22116,20 @@ var reduce = /*#__PURE__*/_curry3(_reduce);
  * @param {String} methodname property to check for a custom implementation
  * @return {Object} Whatever the return value of the method is.
  */
+
 function _checkForMethod(methodname, fn) {
   return function () {
     var length = arguments.length;
+
     if (length === 0) {
       return fn();
     }
+
     var obj = arguments[length - 1];
     return _isArray(obj) || typeof obj[methodname] !== 'function' ? fn.apply(this, arguments) : obj[methodname].apply(obj, Array.prototype.slice.call(arguments, 0, length - 1));
   };
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/slice.js
-
 
 
 /**
@@ -22086,12 +22156,17 @@ function _checkForMethod(methodname, fn) {
  *      R.slice(-3, -1, ['a', 'b', 'c', 'd']);      //=> ['b', 'c']
  *      R.slice(0, 3, 'ramda');                     //=> 'ram'
  */
-var slice = /*#__PURE__*/_curry3( /*#__PURE__*/_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
+
+var slice =
+/*#__PURE__*/
+_curry3(
+/*#__PURE__*/
+_checkForMethod('slice', function slice(fromIndex, toIndex, list) {
   return Array.prototype.slice.call(list, fromIndex, toIndex);
 }));
+
 /* harmony default export */ var es_slice = (slice);
 // CONCATENATED MODULE: ./node_modules/ramda/es/tail.js
-
 
 
 
@@ -22122,17 +22197,24 @@ var slice = /*#__PURE__*/_curry3( /*#__PURE__*/_checkForMethod('slice', function
  *      R.tail('a');    //=> ''
  *      R.tail('');     //=> ''
  */
-var tail = /*#__PURE__*/_curry1( /*#__PURE__*/_checkForMethod('tail', /*#__PURE__*/es_slice(1, Infinity)));
+
+var tail =
+/*#__PURE__*/
+_curry1(
+/*#__PURE__*/
+_checkForMethod('tail',
+/*#__PURE__*/
+es_slice(1, Infinity)));
+
 /* harmony default export */ var es_tail = (tail);
 // CONCATENATED MODULE: ./node_modules/ramda/es/pipe.js
 
 
 
 
-
 /**
- * Performs left-to-right function composition. The leftmost function may have
- * any arity; the remaining functions must be unary.
+ * Performs left-to-right function composition. The first argument may have
+ * any arity; the remaining arguments must be unary.
  *
  * In some libraries this function is named `sequence`.
  *
@@ -22153,14 +22235,15 @@ var tail = /*#__PURE__*/_curry1( /*#__PURE__*/_checkForMethod('tail', /*#__PURE_
  *      f(3, 4); // -(3^4) + 1
  * @symb R.pipe(f, g, h)(a, b) = h(g(f(a, b)))
  */
+
 function pipe() {
   if (arguments.length === 0) {
     throw new Error('pipe requires at least one argument');
   }
+
   return _arity(arguments[0].length, es_reduce(_pipe, arguments[0], es_tail(arguments)));
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_makeFlat.js
-
 
 /**
  * `_makeFlat` is a helper function that returns a one-level or fully recursive
@@ -22168,6 +22251,7 @@ function pipe() {
  *
  * @private
  */
+
 function _makeFlat(recursive) {
   return function flatt(list) {
     var value, jlen, j;
@@ -22180,6 +22264,7 @@ function _makeFlat(recursive) {
         value = recursive ? flatt(list[idx]) : list[idx];
         j = 0;
         jlen = value.length;
+
         while (j < jlen) {
           result[result.length] = value[j];
           j += 1;
@@ -22187,13 +22272,14 @@ function _makeFlat(recursive) {
       } else {
         result[result.length] = list[idx];
       }
+
       idx += 1;
     }
+
     return result;
   };
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/flatten.js
-
 
 
 /**
@@ -22213,14 +22299,19 @@ function _makeFlat(recursive) {
  *      R.flatten([1, 2, [3, 4], 5, [6, [7, 8, [9, [10, 11], 12]]]]);
  *      //=> [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
  */
-var flatten = /*#__PURE__*/_curry1( /*#__PURE__*/_makeFlat(true));
+
+var flatten =
+/*#__PURE__*/
+_curry1(
+/*#__PURE__*/
+_makeFlat(true));
+
 /* harmony default export */ var es_flatten = (flatten);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_isTransformer.js
 function _isTransformer(obj) {
   return obj != null && typeof obj['@@transducer/step'] === 'function';
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_dispatchable.js
-
 
 
 /**
@@ -22237,26 +22328,33 @@ function _isTransformer(obj) {
  * @param {Function} fn default ramda implementation
  * @return {Function} A function that dispatches on object in list position
  */
+
 function _dispatchable(methodNames, xf, fn) {
   return function () {
     if (arguments.length === 0) {
       return fn();
     }
+
     var args = Array.prototype.slice.call(arguments, 0);
     var obj = args.pop();
+
     if (!_isArray(obj)) {
       var idx = 0;
+
       while (idx < methodNames.length) {
         if (typeof obj[methodNames[idx]] === 'function') {
           return obj[methodNames[idx]].apply(obj, args);
         }
+
         idx += 1;
       }
+
       if (_isTransformer(obj)) {
         var transducer = xf.apply(null, args);
         return transducer(obj);
       }
     }
+
     return fn.apply(this, arguments);
   };
 }
@@ -22265,10 +22363,12 @@ function _map(fn, functor) {
   var idx = 0;
   var len = functor.length;
   var result = Array(len);
+
   while (idx < len) {
     result[idx] = fn(functor[idx]);
     idx += 1;
   }
+
   return result;
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_xfBase.js
@@ -22284,13 +22384,17 @@ function _map(fn, functor) {
 
 
 
-var _xmap_XMap = /*#__PURE__*/function () {
+var _xmap_XMap =
+/*#__PURE__*/
+function () {
   function XMap(f, xf) {
     this.xf = xf;
     this.f = f;
   }
+
   XMap.prototype['@@transducer/init'] = _xfBase.init;
   XMap.prototype['@@transducer/result'] = _xfBase.result;
+
   XMap.prototype['@@transducer/step'] = function (result, input) {
     return this.xf['@@transducer/step'](result, this.f(input));
   };
@@ -22298,12 +22402,14 @@ var _xmap_XMap = /*#__PURE__*/function () {
   return XMap;
 }();
 
-var _xmap = /*#__PURE__*/_curry2(function _xmap(f, xf) {
+var _xmap =
+/*#__PURE__*/
+_curry2(function _xmap(f, xf) {
   return new _xmap_XMap(f, xf);
 });
+
 /* harmony default export */ var internal_xmap = (_xmap);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_curryN.js
-
 
 
 /**
@@ -22316,31 +22422,37 @@ var _xmap = /*#__PURE__*/_curry2(function _xmap(f, xf) {
  * @param {Function} fn The function to curry.
  * @return {Function} The curried function.
  */
+
 function _curryN(length, received, fn) {
   return function () {
     var combined = [];
     var argsIdx = 0;
     var left = length;
     var combinedIdx = 0;
+
     while (combinedIdx < received.length || argsIdx < arguments.length) {
       var result;
+
       if (combinedIdx < received.length && (!_isPlaceholder(received[combinedIdx]) || argsIdx >= arguments.length)) {
         result = received[combinedIdx];
       } else {
         result = arguments[argsIdx];
         argsIdx += 1;
       }
+
       combined[combinedIdx] = result;
+
       if (!_isPlaceholder(result)) {
         left -= 1;
       }
+
       combinedIdx += 1;
     }
+
     return left <= 0 ? fn.apply(this, combined) : _arity(left, _curryN(length, combined, fn));
   };
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/curryN.js
-
 
 
 
@@ -22387,12 +22499,17 @@ function _curryN(length, received, fn) {
  *      const g = f(3);
  *      g(4); //=> 10
  */
-var curryN_curryN = /*#__PURE__*/_curry2(function curryN(length, fn) {
+
+var curryN_curryN =
+/*#__PURE__*/
+_curry2(function curryN(length, fn) {
   if (length === 1) {
     return _curry1(fn);
   }
+
   return _arity(length, _curryN(length, [], fn));
 });
+
 /* harmony default export */ var es_curryN = (curryN_curryN);
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_has.js
 function _has(prop, obj) {
@@ -22400,9 +22517,11 @@ function _has(prop, obj) {
 }
 // CONCATENATED MODULE: ./node_modules/ramda/es/internal/_isArguments.js
 
-
 var _isArguments_toString = Object.prototype.toString;
-var _isArguments_isArguments = /*#__PURE__*/function () {
+
+var _isArguments_isArguments =
+/*#__PURE__*/
+function () {
   return _isArguments_toString.call(arguments) === '[object Arguments]' ? function _isArguments(x) {
     return _isArguments_toString.call(x) === '[object Arguments]';
   } : function _isArguments(x) {
@@ -22414,13 +22533,18 @@ var _isArguments_isArguments = /*#__PURE__*/function () {
 // CONCATENATED MODULE: ./node_modules/ramda/es/keys.js
 
 
+ // cover IE < 9 keys issues
 
+var hasEnumBug = !
+/*#__PURE__*/
+{
+  toString: null
+}.propertyIsEnumerable('toString');
+var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString']; // Safari bug
 
-// cover IE < 9 keys issues
-var hasEnumBug = ! /*#__PURE__*/{ toString: null }.propertyIsEnumerable('toString');
-var nonEnumerableProps = ['constructor', 'valueOf', 'isPrototypeOf', 'toString', 'propertyIsEnumerable', 'hasOwnProperty', 'toLocaleString'];
-// Safari bug
-var hasArgsEnumBug = /*#__PURE__*/function () {
+var hasArgsEnumBug =
+/*#__PURE__*/
+function () {
   'use strict';
 
   return arguments.propertyIsEnumerable('length');
@@ -22428,15 +22552,17 @@ var hasArgsEnumBug = /*#__PURE__*/function () {
 
 var contains = function contains(list, item) {
   var idx = 0;
+
   while (idx < list.length) {
     if (list[idx] === item) {
       return true;
     }
+
     idx += 1;
   }
+
   return false;
 };
-
 /**
  * Returns a list containing the names of all the enumerable own properties of
  * the supplied object.
@@ -22455,35 +22581,48 @@ var contains = function contains(list, item) {
  *
  *      R.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
  */
-var keys_keys = typeof Object.keys === 'function' && !hasArgsEnumBug ? /*#__PURE__*/_curry1(function keys(obj) {
+
+
+var keys_keys = typeof Object.keys === 'function' && !hasArgsEnumBug ?
+/*#__PURE__*/
+_curry1(function keys(obj) {
   return Object(obj) !== obj ? [] : Object.keys(obj);
-}) : /*#__PURE__*/_curry1(function keys(obj) {
+}) :
+/*#__PURE__*/
+_curry1(function keys(obj) {
   if (Object(obj) !== obj) {
     return [];
   }
+
   var prop, nIdx;
   var ks = [];
+
   var checkArgsLength = hasArgsEnumBug && internal_isArguments(obj);
+
   for (prop in obj) {
     if (_has(prop, obj) && (!checkArgsLength || prop !== 'length')) {
       ks[ks.length] = prop;
     }
   }
+
   if (hasEnumBug) {
     nIdx = nonEnumerableProps.length - 1;
+
     while (nIdx >= 0) {
       prop = nonEnumerableProps[nIdx];
+
       if (_has(prop, obj) && !contains(ks, prop)) {
         ks[ks.length] = prop;
       }
+
       nIdx -= 1;
     }
   }
+
   return ks;
 });
 /* harmony default export */ var es_keys = (keys_keys);
 // CONCATENATED MODULE: ./node_modules/ramda/es/map.js
-
 
 
 
@@ -22526,26 +22665,34 @@ var keys_keys = typeof Object.keys === 'function' && !hasArgsEnumBug ? /*#__PURE
  * @symb R.map(f, { x: a, y: b }) = { x: f(a), y: f(b) }
  * @symb R.map(f, functor_o) = functor_o.map(f)
  */
-var map_map = /*#__PURE__*/_curry2( /*#__PURE__*/_dispatchable(['fantasy-land/map', 'map'], internal_xmap, function map(fn, functor) {
+
+var map_map =
+/*#__PURE__*/
+_curry2(
+/*#__PURE__*/
+_dispatchable(['fantasy-land/map', 'map'], internal_xmap, function map(fn, functor) {
   switch (Object.prototype.toString.call(functor)) {
     case '[object Function]':
       return es_curryN(functor.length, function () {
         return fn.call(this, functor.apply(this, arguments));
       });
+
     case '[object Object]':
       return _reduce(function (acc, key) {
         acc[key] = fn(functor[key]);
         return acc;
       }, {}, es_keys(functor));
+
     default:
       return _map(fn, functor);
   }
 }));
+
 /* harmony default export */ var es_map = (map_map);
 // EXTERNAL MODULE: ./node_modules/lodash/lodash.js
 var lodash = __webpack_require__("2ef0");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/label.vue?vue&type=template&id=de31440c&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/label.vue?vue&type=template&id=de31440c&
 var labelvue_type_template_id_de31440c_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.item.showLabel !== false)?_c('label',{attrs:{"for":_vm._f("slugify")(_vm.item.label)}},[_vm._v(" "+_vm._s(_vm.item.label)+" "),(_vm.item.help)?_c('span',{staticClass:"help"},[_vm._v(_vm._s(_vm.item.help))]):_vm._e()]):_vm._e()}
 var labelvue_type_template_id_de31440c_staticRenderFns = []
 
@@ -22664,7 +22811,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -22705,14 +22852,14 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var label = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/control.vue?vue&type=template&id=7737782f&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/control.vue?vue&type=template&id=7737782f&
 var controlvue_type_template_id_7737782f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"control",class:{ 'has-icons-left': _vm.item.iconLeft, 'has-icons-right': _vm.shouldShowErrorIcon }},[(_vm.item.value)?_c(("app-" + _vm.getComponent),{directives:[{name:"validate",rawName:"v-validate.immediate",value:(_vm.getValidation),expression:"getValidation",modifiers:{"immediate":true}}],tag:"component",attrs:{"data-vv-name":_vm.item.label,"error":_vm.fieldError,"item":_vm.item},model:{value:(_vm.value),callback:function ($$v) {_vm.value=(typeof $$v === 'string'? $$v.trim(): $$v)},expression:"value"}}):_c(("app-" + _vm.getComponent),{directives:[{name:"validate",rawName:"v-validate",value:(_vm.getValidation),expression:"getValidation"}],tag:"component",attrs:{"data-vv-name":_vm.item.label,"error":_vm.fieldError,"item":_vm.item},model:{value:(_vm.value),callback:function ($$v) {_vm.value=(typeof $$v === 'string'? $$v.trim(): $$v)},expression:"value"}}),(_vm.item.iconLeft)?_c('span',{staticClass:"icon is-small is-left"},[_c('i',{class:("fa fa-" + (_vm.item.iconLeft))})]):_vm._e(),(_vm.shouldShowErrorIcon)?_c('span',{staticClass:"icon is-small is-right"},[_c('i',{staticClass:"fa fa-exclamation-triangle"})]):_vm._e(),(_vm.fieldError)?_c('span',{class:_vm.item.errorClass || 'text-danger'},[_vm._v(" "+_vm._s(_vm.fieldError.msg)+" ")]):_vm._e()],1)}
 var controlvue_type_template_id_7737782f_staticRenderFns = []
 
 
 // CONCATENATED MODULE: ./src/fields/control.vue?vue&type=template&id=7737782f&
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/input.vue?vue&type=template&id=54f0d6f8&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/input.vue?vue&type=template&id=54f0d6f8&
 var inputvue_type_template_id_54f0d6f8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return ((_vm.item.type || 'text')==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"minlength":_vm.minLength,"maxlength":_vm.maxLength,"min":_vm.minValue,"max":_vm.maxValue,"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.value)?_vm._i(_vm.value,null)>-1:(_vm.value)},on:{"input":_vm.updateValue,"change":[function($event){var $$a=_vm.value,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.value=$$a.concat([$$v]))}else{$$i>-1&&(_vm.value=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.value=$$c}},_vm.updateValue],"blur":_vm.updateValue}},'input',_vm.attributes,false),_vm.item.events || {})):((_vm.item.type || 'text')==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"minlength":_vm.minLength,"maxlength":_vm.maxLength,"min":_vm.minValue,"max":_vm.maxValue,"type":"radio"},domProps:{"checked":_vm._q(_vm.value,null)},on:{"input":_vm.updateValue,"change":[function($event){_vm.value=null},_vm.updateValue],"blur":_vm.updateValue}},'input',_vm.attributes,false),_vm.item.events || {})):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"minlength":_vm.minLength,"maxlength":_vm.maxLength,"min":_vm.minValue,"max":_vm.maxValue,"type":_vm.item.type || 'text'},domProps:{"value":(_vm.value)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.value=$event.target.value},_vm.updateValue],"change":_vm.updateValue,"blur":_vm.updateValue}},'input',_vm.attributes,false),_vm.item.events || {}))}
 var inputvue_type_template_id_54f0d6f8_staticRenderFns = []
 
@@ -22861,7 +23008,7 @@ var input_component = normalizeComponent(
 )
 
 /* harmony default export */ var input = (input_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/select.vue?vue&type=template&id=fe9bd8dc&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/select.vue?vue&type=template&id=fe9bd8dc&
 var selectvue_type_template_id_fe9bd8dc_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('multiselect',_vm._g(_vm._b({attrs:{"loading":_vm.isLoading,"options":_vm.options},on:{"input":_vm.updateValue},model:{value:(_vm.value),callback:function ($$v) {_vm.value=$$v},expression:"value"}},'multiselect',_vm.attributes,false),_vm.attachEvents))}
 var selectvue_type_template_id_fe9bd8dc_staticRenderFns = []
 
@@ -22977,7 +23124,7 @@ var select_component = normalizeComponent(
 )
 
 /* harmony default export */ var fields_select = (select_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/textarea.vue?vue&type=template&id=6b3b8090&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/textarea.vue?vue&type=template&id=6b3b8090&
 var textareavue_type_template_id_6b3b8090_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('textarea',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"data-vv-name":_vm.item.label,"minlength":_vm.minLength,"maxlength":_vm.maxLength},domProps:{"value":(_vm.value)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.value=$event.target.value},_vm.updateValue],"change":_vm.updateValue,"blur":_vm.updateValue}},'textarea',_vm.attributes,false),_vm.item.events || {}))}
 var textareavue_type_template_id_6b3b8090_staticRenderFns = []
 
@@ -23051,7 +23198,7 @@ var textarea_component = normalizeComponent(
 )
 
 /* harmony default export */ var fields_textarea = (textarea_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/checkbox.vue?vue&type=template&id=71aa148f&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/checkbox.vue?vue&type=template&id=71aa148f&
 var checkboxvue_type_template_id_71aa148f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._l((_vm.item.items),function(x,index){return _c('label',{key:index,staticClass:"checkbox",attrs:{"for":_vm._f("slugify")(x.text || x)}},[((_vm.item.type)==='checkbox')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],class:{ 'is-danger': !!_vm.error },attrs:{"id":_vm._f("slugify")(x.text || x),"name":_vm._f("slugify")(_vm.item.label),"type":"checkbox"},domProps:{"value":x.value || x.text || x,"checked":Array.isArray(_vm.value)?_vm._i(_vm.value,x.value || x.text || x)>-1:(_vm.value)},on:{"input":function($event){return _vm.updateValue()},"change":[function($event){var $$a=_vm.value,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=x.value || x.text || x,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.value=$$a.concat([$$v]))}else{$$i>-1&&(_vm.value=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.value=$$c}},function($event){return _vm.updateValue()}],"blur":function($event){return _vm.updateValue()}}}):((_vm.item.type)==='radio')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],class:{ 'is-danger': !!_vm.error },attrs:{"id":_vm._f("slugify")(x.text || x),"name":_vm._f("slugify")(_vm.item.label),"type":"radio"},domProps:{"value":x.value || x.text || x,"checked":_vm._q(_vm.value,x.value || x.text || x)},on:{"input":function($event){return _vm.updateValue()},"change":[function($event){_vm.value=x.value || x.text || x},function($event){return _vm.updateValue()}],"blur":function($event){return _vm.updateValue()}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],class:{ 'is-danger': !!_vm.error },attrs:{"id":_vm._f("slugify")(x.text || x),"name":_vm._f("slugify")(_vm.item.label),"type":_vm.item.type},domProps:{"value":x.value || x.text || x,"value":(_vm.value)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.value=$event.target.value},function($event){return _vm.updateValue()}],"change":function($event){return _vm.updateValue()},"blur":function($event){return _vm.updateValue()}}}),_c('span',{staticClass:"checkboxLabel"},[_vm._v(_vm._s(x.text || x))])])}),0)}
 var checkboxvue_type_template_id_71aa148f_staticRenderFns = []
 
@@ -23134,7 +23281,7 @@ var checkbox_component = normalizeComponent(
 )
 
 /* harmony default export */ var fields_checkbox = (checkbox_component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"5c04b7be-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/radio.vue?vue&type=template&id=27b82df7&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/radio.vue?vue&type=template&id=27b82df7&
 var radiovue_type_template_id_27b82df7_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',_vm._l((_vm.item.items),function(x,index){return _c('label',{key:index,staticClass:"radio",attrs:{"for":_vm._f("slugify")(x.text || x)}},[((_vm.item.type)==='checkbox')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],class:{ 'is-danger': !!_vm.error },attrs:{"id":_vm._f("slugify")(x.text || x),"name":_vm._f("slugify")(_vm.item.label),"required":_vm.item.isRequired !== false,"type":"checkbox"},domProps:{"value":x.value || x.text || x,"checked":Array.isArray(_vm.value)?_vm._i(_vm.value,x.value || x.text || x)>-1:(_vm.value)},on:{"input":function($event){return _vm.updateValue()},"change":[function($event){var $$a=_vm.value,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=x.value || x.text || x,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.value=$$a.concat([$$v]))}else{$$i>-1&&(_vm.value=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.value=$$c}},function($event){return _vm.updateValue()}],"blur":function($event){return _vm.updateValue()}}}):((_vm.item.type)==='radio')?_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],class:{ 'is-danger': !!_vm.error },attrs:{"id":_vm._f("slugify")(x.text || x),"name":_vm._f("slugify")(_vm.item.label),"required":_vm.item.isRequired !== false,"type":"radio"},domProps:{"value":x.value || x.text || x,"checked":_vm._q(_vm.value,x.value || x.text || x)},on:{"input":function($event){return _vm.updateValue()},"change":[function($event){_vm.value=x.value || x.text || x},function($event){return _vm.updateValue()}],"blur":function($event){return _vm.updateValue()}}}):_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],class:{ 'is-danger': !!_vm.error },attrs:{"id":_vm._f("slugify")(x.text || x),"name":_vm._f("slugify")(_vm.item.label),"required":_vm.item.isRequired !== false,"type":_vm.item.type},domProps:{"value":x.value || x.text || x,"value":(_vm.value)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.value=$event.target.value},function($event){return _vm.updateValue()}],"change":function($event){return _vm.updateValue()},"blur":function($event){return _vm.updateValue()}}}),_c('span',{staticClass:"checkboxLabel"},[_vm._v(_vm._s(x.text || x))])])}),0)}
 var radiovue_type_template_id_27b82df7_staticRenderFns = []
 
