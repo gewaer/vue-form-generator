@@ -56,14 +56,14 @@
 </template>
 
 <script>
-import { flatten, pickAll, pipe, map } from "ramda";
+// import { flatten, pickAll, pipe, map } from "ramda";
 import { every } from "lodash";
 
 import Label from "./fields/label";
 import Control from "./fields/control";
 
-const getLabels = ({ label }) => label;
-const valueToProp = (object) => pickAll(object, {});
+// const getLabels = ({ label }) => label;
+// const valueToProp = (object) => pickAll(object, {});
 
 export default {
     name: "Form",
@@ -121,7 +121,7 @@ export default {
     },
     data() {
         return {
-            formValues: undefined,
+            formValues: {},
             allControls: []
         }
     },
@@ -146,7 +146,7 @@ export default {
         }
     },
     created() {
-        this.formValues = pipe(flatten, map(getLabels), valueToProp)(this.formFields);
+        // this.formValues = pipe(map/*flatten, map(getLabels), valueToProp)(th*/is.formFields);
 
         // This is very taxing. Use at your own risk.
         if (this.emitValuesOnUpdate) {
