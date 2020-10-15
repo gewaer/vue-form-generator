@@ -56,14 +56,14 @@
 </template>
 
 <script>
-import { flatten, pickAll, pipe, map } from "ramda";
+// import { flatten, pickAll, pipe, map } from "ramda";
 import { every } from "lodash";
 
 import Label from "./fields/label";
 import Control from "./fields/control";
 
-const getLabels = ({ label }) => label;
-const valueToProp = (object) => pickAll(object, {});
+// const getLabels = ({ label }) => label;
+// const valueToProp = (object) => pickAll(object, {});
 
 export default {
     name: "Form",
@@ -121,7 +121,7 @@ export default {
     },
     data() {
         return {
-            formValues: undefined,
+            formValues: {},
             allControls: []
         }
     },
@@ -146,12 +146,12 @@ export default {
         }
     },
     created() {
-        this.formValues = pipe(flatten, map(getLabels), valueToProp)(this.formFields);
+        // this.formValues = pipe(map/*flatten, map(getLabels), valueToProp)(th*/is.formFields);
 
         // This is very taxing. Use at your own risk.
         if (this.emitValuesOnUpdate) {
             this.$watch("formValues", (values) => {
-                this.$emit("formValuesUpdated", values);
+                this.$emit("form-values-updated", values);
             }, { deep: true });
         }
     },
@@ -180,7 +180,7 @@ export default {
             isValidated && this.resetFormAfterSubmit && this.resetForm(event);
         },
         cancelForm() {
-            this.$emit("formCancelled");
+            this.$emit("form-cancelled");
         },
         clearValues() {
             this.allControls.map(x => {
@@ -206,7 +206,7 @@ export default {
             })
         },
         emitValues(data) {
-            this.$emit("formSubmitted", data);
+            this.$emit("form-submitted", data);
         },
         getChangedFields() {
             return this.changedFields;
