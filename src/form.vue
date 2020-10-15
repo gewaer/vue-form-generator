@@ -151,7 +151,7 @@ export default {
         // This is very taxing. Use at your own risk.
         if (this.emitValuesOnUpdate) {
             this.$watch("formValues", (values) => {
-                this.$emit("formValuesUpdated", values);
+                this.$emit("form-values-updated", values);
             }, { deep: true });
         }
     },
@@ -180,7 +180,7 @@ export default {
             isValidated && this.resetFormAfterSubmit && this.resetForm(event);
         },
         cancelForm() {
-            this.$emit("formCancelled");
+            this.$emit("form-cancelled");
         },
         clearValues() {
             this.allControls.map(x => {
@@ -206,7 +206,7 @@ export default {
             })
         },
         emitValues(data) {
-            this.$emit("formSubmitted", data);
+            this.$emit("form-submitted", data);
         },
         getChangedFields() {
             return this.changedFields;
