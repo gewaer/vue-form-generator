@@ -21780,12 +21780,12 @@ var component = normalizeComponent(
 )
 
 /* harmony default export */ var label = (component.exports);
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/control.vue?vue&type=template&id=7737782f&
-var controlvue_type_template_id_7737782f_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"control",class:{ 'has-icons-left': _vm.item.iconLeft, 'has-icons-right': _vm.shouldShowErrorIcon }},[(_vm.item.value)?_c(("app-" + _vm.getComponent),{directives:[{name:"validate",rawName:"v-validate.immediate",value:(_vm.getValidation),expression:"getValidation",modifiers:{"immediate":true}}],tag:"component",attrs:{"data-vv-name":_vm.item.label,"error":_vm.fieldError,"item":_vm.item},model:{value:(_vm.value),callback:function ($$v) {_vm.value=(typeof $$v === 'string'? $$v.trim(): $$v)},expression:"value"}}):_c(("app-" + _vm.getComponent),{directives:[{name:"validate",rawName:"v-validate",value:(_vm.getValidation),expression:"getValidation"}],tag:"component",attrs:{"data-vv-name":_vm.item.label,"error":_vm.fieldError,"item":_vm.item},model:{value:(_vm.value),callback:function ($$v) {_vm.value=(typeof $$v === 'string'? $$v.trim(): $$v)},expression:"value"}}),(_vm.item.iconLeft)?_c('span',{staticClass:"icon is-small is-left"},[_c('i',{class:("fa fa-" + (_vm.item.iconLeft))})]):_vm._e(),(_vm.shouldShowErrorIcon)?_c('span',{staticClass:"icon is-small is-right"},[_c('i',{staticClass:"fa fa-exclamation-triangle"})]):_vm._e(),(_vm.fieldError)?_c('span',{class:_vm.item.errorClass || 'text-danger'},[_vm._v(" "+_vm._s(_vm.fieldError.msg)+" ")]):_vm._e()],1)}
-var controlvue_type_template_id_7737782f_staticRenderFns = []
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/control.vue?vue&type=template&id=3e385557&
+var controlvue_type_template_id_3e385557_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"control",class:{ 'has-icons-left': _vm.item.iconLeft, 'has-icons-right': _vm.shouldShowErrorIcon }},[_c(("app-" + _vm.getComponent),{directives:[{name:"validate",rawName:"v-validate.immediate",value:(_vm.getValidation),expression:"getValidation",modifiers:{"immediate":true}}],tag:"component",attrs:{"data-vv-name":_vm.item.label,"error":_vm.fieldError,"item":_vm.item},model:{value:(_vm.value),callback:function ($$v) {_vm.value=(typeof $$v === 'string'? $$v.trim(): $$v)},expression:"value"}}),(_vm.item.iconLeft)?_c('span',{staticClass:"icon is-small is-left"},[_c('i',{class:("fa fa-" + (_vm.item.iconLeft))})]):_vm._e(),(_vm.shouldShowErrorIcon)?_c('span',{staticClass:"icon is-small is-right"},[_c('i',{staticClass:"fa fa-exclamation-triangle"})]):_vm._e(),(_vm.fieldError)?_c('span',{class:_vm.item.errorClass || 'text-danger'},[_vm._v(" "+_vm._s(_vm.fieldError.msg)+" ")]):_vm._e()],1)}
+var controlvue_type_template_id_3e385557_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/fields/control.vue?vue&type=template&id=7737782f&
+// CONCATENATED MODULE: ./src/fields/control.vue?vue&type=template&id=3e385557&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77c2142b-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/fields/input.vue?vue&type=template&id=54f0d6f8&
 var inputvue_type_template_id_54f0d6f8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return ((_vm.item.type || 'text')==='checkbox')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"minlength":_vm.minLength,"maxlength":_vm.maxLength,"min":_vm.minValue,"max":_vm.maxValue,"type":"checkbox"},domProps:{"checked":Array.isArray(_vm.value)?_vm._i(_vm.value,null)>-1:(_vm.value)},on:{"input":_vm.updateValue,"change":[function($event){var $$a=_vm.value,$$el=$event.target,$$c=$$el.checked?(true):(false);if(Array.isArray($$a)){var $$v=null,$$i=_vm._i($$a,$$v);if($$el.checked){$$i<0&&(_vm.value=$$a.concat([$$v]))}else{$$i>-1&&(_vm.value=$$a.slice(0,$$i).concat($$a.slice($$i+1)))}}else{_vm.value=$$c}},_vm.updateValue],"blur":_vm.updateValue}},'input',_vm.attributes,false),_vm.item.events || {})):((_vm.item.type || 'text')==='radio')?_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"minlength":_vm.minLength,"maxlength":_vm.maxLength,"min":_vm.minValue,"max":_vm.maxValue,"type":"radio"},domProps:{"checked":_vm._q(_vm.value,null)},on:{"input":_vm.updateValue,"change":[function($event){_vm.value=null},_vm.updateValue],"blur":_vm.updateValue}},'input',_vm.attributes,false),_vm.item.events || {})):_c('input',_vm._g(_vm._b({directives:[{name:"model",rawName:"v-model",value:(_vm.value),expression:"value"}],attrs:{"id":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"name":_vm._f("lowercase")(_vm._f("slugify")(_vm.item.label)),"minlength":_vm.minLength,"maxlength":_vm.maxLength,"min":_vm.minValue,"max":_vm.maxValue,"type":_vm.item.type || 'text'},domProps:{"value":(_vm.value)},on:{"input":[function($event){if($event.target.composing){ return; }_vm.value=$event.target.value},_vm.updateValue],"change":_vm.updateValue,"blur":_vm.updateValue}},'input',_vm.attributes,false),_vm.item.events || {}))}
@@ -22319,16 +22319,6 @@ var radio_component = normalizeComponent(
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -22396,21 +22386,18 @@ const NOT_NORMAL_INPUT = ["textarea", "select", "checkbox", "radio"];
         min_value: minValue,
         max_value: maxValue
       } = this.item.validations || {};
-      const isNormalInputOrTextarea = this.isNormalInput || type === "textarea";
       const isInputNumber = type === "number";
-      return isNormalInputOrTextarea && {
+      return { ...(this.item.validations || {}),
         min: !isInputNumber && min || false,
         max: !isInputNumber && max || type === "textarea" ? this.DEFAULT_MAX_LENGTH_TEXTAREA : this.DEFAULT_MAX_LENGTH_INPUT,
         min_value: isInputNumber && minValue || false,
-        max_value: isInputNumber && maxValue || false,
-        ...(this.item.validations || {})
+        max_value: isInputNumber && maxValue || false
       };
     }
 
   },
   watch: {
     value(val) {
-      // this.$parent.formValues[this.item.field || this.item.label] = val;)
       this.$emit("updateValue", this.item.field || this.item.label, val);
     }
 
@@ -22428,8 +22415,8 @@ const NOT_NORMAL_INPUT = ["textarea", "select", "checkbox", "radio"];
 
 var control_component = normalizeComponent(
   fields_controlvue_type_script_lang_js_,
-  controlvue_type_template_id_7737782f_render,
-  controlvue_type_template_id_7737782f_staticRenderFns,
+  controlvue_type_template_id_3e385557_render,
+  controlvue_type_template_id_3e385557_staticRenderFns,
   false,
   null,
   null,

@@ -2,18 +2,8 @@
     <div :class="{ 'has-icons-left': item.iconLeft, 'has-icons-right': shouldShowErrorIcon }" class="control">
         <component
             :is="`app-${getComponent}`"
-            v-if="item.value"
             v-model.lazy.trim="value"
             v-validate.immediate="getValidation"
-            :data-vv-name="item.label"
-            :error="fieldError"
-            :item="item"
-        />
-        <component
-            :is="`app-${getComponent}`"
-            v-else
-            v-model.lazy.trim="value"
-            v-validate="getValidation"
             :data-vv-name="item.label"
             :error="fieldError"
             :item="item"
@@ -85,21 +75,19 @@ export default {
         getValidation() {
             const { type } = this.item;
             const { min, max, min_value: minValue, max_value: maxValue } = this.item.validations || {};
-            const isNormalInputOrTextarea = this.isNormalInput || type === "textarea";
             const isInputNumber = type === "number";
 
-            return isNormalInputOrTextarea && {
+            return {
+                ...(this.item.validations || {}),
                 min: !isInputNumber && min || false,
                 max: !isInputNumber && max || type === "textarea" ? this.DEFAULT_MAX_LENGTH_TEXTAREA : this.DEFAULT_MAX_LENGTH_INPUT,
                 min_value: isInputNumber && minValue || false,
-                max_value: isInputNumber && maxValue || false,
-                ...(this.item.validations || {})
+                max_value: isInputNumber && maxValue || false
             }
         }
     },
     watch: {
         value(val) {
-            // this.$parent.formValues[this.item.field || this.item.label] = val;)
             this.$emit("updateValue", this.item.field || this.item.label, val);
         }
     }
